@@ -5,4 +5,5 @@
     <string name="browse_pictures">Browse questions</string>
     <string name="buddy_quiz">Buddy Quiz</string>
     <string name="button_answer">Default</string>
+    <string name="endText">Thank you for playing buddy quiz</string>
 </resources>

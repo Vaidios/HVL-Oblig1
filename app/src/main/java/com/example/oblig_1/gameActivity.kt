@@ -1,5 +1,6 @@
 package com.example.oblig_1
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,11 +16,14 @@ class gameActivity : AppCompatActivity() {
 
     var allProfiles = mutableListOf<Profile>()
     var usedProfile: MutableList<Profile> = mutableListOf<Profile>()
-    var bools = BooleanArray(2)
+    var bools = arrayOf(true, false)
 
     val playLimit: Int = 5
 
-    val handler = Handler()
+    //Handler to update the UI on global thread
+    private val handler = Handler()
+
+
 
     val runnable = Runnable {
         kotlin.run {
@@ -27,38 +31,43 @@ class gameActivity : AppCompatActivity() {
         }
     }
 
-    var correctAnswers = 0
-    var wrongAnswers = 0
+    private var correctAnswers: Int = 0
+    private var wrongAnswers: Int = 0
 
-    var currentProfile: Profile? = null
+    private var currentProfile: Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        bools[0] = true
-        bools[1] = false
-
+        //Get all profiles from global settings
         allProfiles = getProfiles()
+
+        //Call a function to start a game
         startGame()
 
 
         leftButton.setOnClickListener {
-            leftButtonClicked(it as Button)
+            userClicked(it as Button, rightButton)
         }
 
         rightButton.setOnClickListener {
-            rightButtonClicked(it as Button)
+            userClicked(it as Button, leftButton)
         }
     }
 
     fun startGame() {
         resetButtons()
-        //Choose random person from our Profiles class
-        var leftProfiles = allProfiles.toMutableList()
+        val leftProfiles = allProfiles.toMutableList()
+
+        //Remove profiles that were used for the game
         usedProfile.forEach {
             leftProfiles.remove(it)
         }
+        if (leftProfiles.count() == 0 || (correctAnswers + wrongAnswers) == playLimit) {
+            moveToEndScreen()
+        }
+        //Choose random person from our Profiles class
         val randProfile = leftProfiles.random()
         currentProfile = randProfile
         usedProfile.add(randProfile)
@@ -69,45 +78,24 @@ class gameActivity : AppCompatActivity() {
         when(bools.random()) {
             true -> {
                 leftButton.text = randProfile.name
-                rightButton.text = leftProfiles.random().name
+                rightButton.text = getNames().random()
             }
             false -> {
                 rightButton.text = randProfile.name
-                leftButton.text = leftProfiles.random().name
+                leftButton.text = getNames().random()
             }
         }
     }
 
-    fun leftButtonClicked(button: Button) {
-        val isCorrect = checkAnswer(button.text.toString())
-        if (isCorrect) {
 
-            turnOffInteractionWith()
-            correctAnswers += 1
-            button.setBackgroundColor(Color.GREEN)
-            rightButton.setBackgroundColor(Color.RED)
-            Timer().schedule(timerTask {
-                handler.post(runnable)
-            }, 2000)
-        } else {
-            turnOffInteractionWith()
-            wrongAnswers += 1
-            button.setBackgroundColor(Color.RED)
-            rightButton.setBackgroundColor(Color.GREEN)
-            Timer().schedule(timerTask {
-                handler.post(runnable)
-            }, 2000)
-        }
 
-    }
-
-    fun rightButtonClicked(button: Button) {
+    fun userClicked(button: Button, secondButton: Button) {
         val isCorrect = checkAnswer(button.text.toString())
         if (isCorrect) {
             turnOffInteractionWith()
             correctAnswers += 1
             button.setBackgroundColor(Color.GREEN)
-            leftButton.setBackgroundColor(Color.RED)
+            secondButton.setBackgroundColor(Color.RED)
             Timer().schedule(timerTask {
                 handler.post(runnable)
             }, 2000)
@@ -117,13 +105,19 @@ class gameActivity : AppCompatActivity() {
             wrongAnswers += 1
 
             button.setBackgroundColor(Color.RED)
-            leftButton.setBackgroundColor(Color.GREEN)
+            secondButton.setBackgroundColor(Color.GREEN)
             Timer().schedule(timerTask {
                 handler.post(runnable)
             }, 2000)
         }
     }
 
+    fun moveToEndScreen() {
+        val intent = Intent(this, EndActivity::class.java)
+        intent.putExtra("correctAnswers", correctAnswers)
+        intent.putExtra("wrongAnswers", wrongAnswers)
+        startActivity(intent)
+    }
     fun resetButtons() {
         turnOnInteractionWith()
         leftButton.setBackgroundColor(Color.GRAY)
@@ -150,6 +144,11 @@ class gameActivity : AppCompatActivity() {
         val myApp: MyApp = application as MyApp
         val profiles = myApp.profiles
         return profiles
+    }
+    fun getNames(): Array<String> {
+        val myApp: MyApp = application as MyApp
+        val names = myApp.names
+        return names
     }
 
 }

@@ -18,4 +18,12 @@ class EndActivity : AppCompatActivity() {
         wrongTextView.text = "Wrong answers: $wrongAnswers"
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
 }

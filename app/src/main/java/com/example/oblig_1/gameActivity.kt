@@ -18,7 +18,7 @@ class gameActivity : AppCompatActivity() {
     var usedProfile: MutableList<Profile> = mutableListOf<Profile>()
     var bools = arrayOf(true, false)
 
-    val playLimit: Int = 5
+    val playLimit: Int = 1
 
     //Handler to update the UI on global thread
     private val handler = Handler()
@@ -66,6 +66,7 @@ class gameActivity : AppCompatActivity() {
         }
         if (leftProfiles.count() == 0 || (correctAnswers + wrongAnswers) == playLimit) {
             moveToEndScreen()
+            return
         }
         //Choose random person from our Profiles class
         val randProfile = leftProfiles.random()

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Buddy Quiz</string>
+    <string name="addProfile_Cancel">Anuluj</string>
+    <string name="addProfile_Finish">Gotowe</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="browse_pictures">Przeglądaj pytania</string>
+    <string name="button_answer">Domyślne</string>
+    <string name="endText">Dziękuję za zagranie w Buddy Quiz</string>
+    <string name="start_game">Rozpocznij grę</string>
+</resources>

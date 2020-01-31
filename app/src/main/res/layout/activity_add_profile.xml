@@ -24,13 +24,13 @@
         android:layout_marginBottom="20dp">
         <Button
             android:id="@+id/cancelButton"
-            android:text="Cancle"
+            android:text="@string/addProfile_Finish"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/finishButton"
-            android:text="Finish"
+            android:text="@string/addProfile_Finish"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"/>

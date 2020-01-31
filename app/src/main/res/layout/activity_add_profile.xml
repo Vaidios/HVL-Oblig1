@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ImageView
+        android:id="@+id/addProfilePic"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:contentDescription="Profile picture"
+        android:layout_weight="1"/>
+    <EditText
+        android:id="@+id/nameText"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/cancelButton"
+            android:text="Cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/finishButton"
+            android:text="Finish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>

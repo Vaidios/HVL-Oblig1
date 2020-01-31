@@ -2,6 +2,7 @@ package com.example.oblig_1
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -21,7 +22,12 @@ class CustomAdapter(private val context: Activity, private val profiles: List<Pr
         val imageView = rowView.findViewById<ImageView>(R.id.profilePic)
 
         nameText.text = profiles[position].name
-        imageView.setImageResource(profiles[position].picture)
+        if (profiles[position].picture != null) {
+            imageView.setImageResource(profiles[position].picture as Int)
+        } else if (profiles[position].pictureBitmap != null) {
+            imageView.setImageBitmap(profiles[position].pictureBitmap as Bitmap)
+        }
+
 
         return rowView
     }

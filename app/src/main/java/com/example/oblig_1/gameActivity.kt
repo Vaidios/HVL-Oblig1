@@ -66,13 +66,18 @@ class gameActivity : AppCompatActivity() {
         }
         if (leftProfiles.count() == 0 || (correctAnswers + wrongAnswers) == playLimit) {
             moveToEndScreen()
+            finish()
             return
         }
         //Choose random person from our Profiles class
         val randProfile = leftProfiles.random()
         currentProfile = randProfile
         usedProfile.add(randProfile)
-        profileView.setImageResource(randProfile.picture)
+        if (randProfile.picture != null) {
+            profileView.setImageResource(randProfile.picture)
+        } else if ( randProfile.pictureBitmap != null ) {
+            profileView.setImageBitmap(randProfile.pictureBitmap)
+        }
 
 
 
@@ -82,8 +87,8 @@ class gameActivity : AppCompatActivity() {
                 rightButton.text = getNames().random()
             }
             false -> {
-                rightButton.text = randProfile.name
                 leftButton.text = getNames().random()
+                rightButton.text = randProfile.name
             }
         }
     }

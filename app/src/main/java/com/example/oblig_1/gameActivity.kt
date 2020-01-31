@@ -18,7 +18,8 @@ class gameActivity : AppCompatActivity() {
     var usedProfile: MutableList<Profile> = mutableListOf<Profile>()
     var bools = arrayOf(true, false)
 
-    val playLimit: Int = 1
+    val playLimit: Int = 3
+    val delay: Long = 1200
 
     //Handler to update the UI on global thread
     private val handler = Handler()
@@ -104,7 +105,7 @@ class gameActivity : AppCompatActivity() {
             secondButton.setBackgroundColor(Color.RED)
             Timer().schedule(timerTask {
                 handler.post(runnable)
-            }, 2000)
+            }, delay)
 
         } else {
             turnOffInteractionWith()
@@ -114,7 +115,7 @@ class gameActivity : AppCompatActivity() {
             secondButton.setBackgroundColor(Color.GREEN)
             Timer().schedule(timerTask {
                 handler.post(runnable)
-            }, 2000)
+            }, delay)
         }
     }
 

@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_browse_people.*
 
 class browsePeople : AppCompatActivity() {
 
-    val customAdapter = CustomAdapter(this, getProfiles())
+    var adapter: CustomAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +15,8 @@ class browsePeople : AppCompatActivity() {
         getProfiles()
 
 
+        val customAdapter = CustomAdapter(this, getProfiles())
+        adapter = customAdapter
         profilesList.adapter = customAdapter
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -34,10 +36,11 @@ class browsePeople : AppCompatActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        customAdapter.notifyDataSetChanged()
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        adapter?.notifyDataSetChanged()
     }
+
 
 }
 

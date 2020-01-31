@@ -70,8 +70,8 @@ class AddProfile : AppCompatActivity() {
     }
 
     fun addProfileAndFinish() {
-        val profile = Profile(m_nameText, null, m_picBitmap)
         if (getName()) {
+            val profile = Profile(m_nameText, null, m_picBitmap)
             val profiles = getProfiles()
             profiles.add(profile)
             finish()

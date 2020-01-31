@@ -36,8 +36,8 @@ class browsePeople : AppCompatActivity() {
     }
 
 
-    override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        super.onActivityReenter(resultCode, data)
+    override fun onStart() {
+        super.onStart()
         adapter?.notifyDataSetChanged()
     }
 

@@ -3,13 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <ImageView
         android:id="@+id/addProfilePic"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:contentDescription="Profile picture"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:background="@color/cardview_light_background"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_margin="30dp"/>
     <EditText
         android:id="@+id/nameText"
         android:imeOptions="actionDone"

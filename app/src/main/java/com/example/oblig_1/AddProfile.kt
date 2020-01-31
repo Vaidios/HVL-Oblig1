@@ -32,7 +32,6 @@ class AddProfile : AppCompatActivity() {
     }
 
     fun setupAddProfilePic(imageView: ImageView) {
-        imageView.setBackgroundColor(Color.GRAY)
         imageView.setOnClickListener {
             showCamera()
         }
